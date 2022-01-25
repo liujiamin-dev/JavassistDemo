@@ -11,6 +11,7 @@ import android.widget.Toast;
 import com.app.annotation.apt.BindView;
 import com.app.annotation.aspect.CheckLogin;
 import com.app.aptlibrary.BindViewTools;
+import com.konka.mylibrary.Utils;
 
 /**
  * @author：xinyu.zhou
@@ -31,6 +32,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        Utils.pushResult();
 
         BindViewTools.bind(this);
         textView.setText("bind Button success");
