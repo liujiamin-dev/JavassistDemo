@@ -61,13 +61,13 @@ public class BindViewProcessor extends AbstractProcessor {
     public boolean process(Set<? extends TypeElement> set, RoundEnvironment roundEnvironment) {
         mMessager.printMessage(Diagnostic.Kind.NOTE, "processing...");
         mProxyMap.clear();
-        //得到所有的注解
+
         Set<? extends Element> elements = roundEnvironment.getElementsAnnotatedWith(BindView.class);
         for (Element element : elements) {
             VariableElement variableElement = (VariableElement) element;
             TypeElement classElement = (TypeElement) variableElement.getEnclosingElement();
             String fullClassName = classElement.getQualifiedName().toString();
-            //elements的信息保存到mProxyMap中
+
             ClassFactory proxy = mProxyMap.get(fullClassName);
             if (proxy == null) {
                 proxy = new ClassFactory(mElementUtils, classElement);
@@ -83,7 +83,7 @@ public class BindViewProcessor extends AbstractProcessor {
             ClassFactory proxyInfo = mProxyMap.get(key);
             JavaFile javaFile = JavaFile.builder(proxyInfo.getPackageName(), proxyInfo.generateJavaCode()).build();
             try {
-                //　生成文件
+
                 javaFile.writeTo(processingEnv.getFiler());
             } catch (IOException e) {
                 e.printStackTrace();

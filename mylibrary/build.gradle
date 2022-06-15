@@ -1,5 +1,5 @@
 apply plugin: 'com.android.library'
-apply plugin: 'maven'
+apply plugin: 'maven-publish'
 
 android {
     compileSdkVersion 30
@@ -31,15 +31,31 @@ dependencies {
 
 }
 
-uploadArchives {
+//uploadArchives {
+//
+//    repositories.mavenDeployer {
+//        repository(url: uri('../repo'))
+//        pom.groupId = 'com.konka.mylibrary'
+//        pom.artifactId = 'ljmlibrary'
+//        pom.version = '1.0.0'
+//    }
+//
+//
+//
+//}
 
-    repositories.mavenDeployer {
-        repository(url: uri('../repo'))
-        pom.groupId = 'com.konka.mylibrary'
-        pom.artifactId = 'ljmlibrary'
-        pom.version = '1.0.0'
+publishing {
+    repositories {
+        maven {
+            url = '../repo'
+        }
     }
-
-
-
+    publications {
+        maven(MavenPublication) {
+            groupId = 'com.konka.mylibrary'
+            artifactId = 'ljmlibrary'
+            version = '1.0.0'
+            artifact "build/outputs/aar/mylibrary-debug.aar"
+        }
+    }
 }
